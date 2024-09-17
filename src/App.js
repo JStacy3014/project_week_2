@@ -17,6 +17,7 @@ export function App(params) {
     log("in getCustomers()");
     setCustomers (getAll () );
   }
+  //getAll was not returning - issue with memdb.js appeared to be the export portion
 
   const handleListClick = function(item){
     log("in handleListClick()");
