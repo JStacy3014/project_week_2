@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { getAll, post, put, deleteById } from './restdb.js';
+import { getAll, post, put, deleteById } from './memdb.js';
 import './App.css';
 import CustomerList from './components/CustomerList.js';
 import CustomerForm from './components/CustomerAddUpdateForm.js';
@@ -13,11 +13,11 @@ export function App(params) {
   //adding const line to check useState 
   const [formObject, setFormObject] = useState(blankCustomer);
   let mode = (formObject.id >= 0) ? 'Update' : 'Add';
-  useEffect(() => { getCustomers() }, [formObject]);
+  useEffect(() => { getCustomers() }, []);
 
   const getCustomers =  function(){
     log("in getCustomers()");
-    getAll(setCustomers);
+    setCustomers (getAll () );
   }
   //getAll was not returning - issue with memdb.js appeared to be the export portion
 
@@ -48,21 +48,18 @@ export function App(params) {
   }
 
   let onDeleteClick = function () {
-    let postopCallback = () => {setFormObject(blankCustomer);}
     if (formObject.id >=0) {
-      deleteById(formObject.id, postopCallback);
-    } else {
-        setFormObject(blankCustomer);
+      deleteById(formObject.id);
     }
+    setFormObject(blankCustomer);
   }
 
   let onSaveClick = function () {
-    let postopCallback = () => {setFormObject(blankCustomer); }
     if (mode ==='Add') {
-      post(formObject, postopCallback);
+      post(formObject);
     }
     if (mode === 'Update') {
-      put(formObject, postopCallback);
+      put(formObject.id, formObject);
     }
     setFormObject(blankCustomer);
     log("in onSaveClick()");
