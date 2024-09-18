@@ -21,7 +21,12 @@ export function App(params) {
 
   const handleListClick = function(item){
     log("in handleListClick()");
-    setFormObject(item);
+    //tried setFormObject(item) as if statement and did not work, so switched them and it worked. 
+    if(item.id === formObject.id) {
+      setFormObject(blankCustomer);
+    } else {
+      setFormObject(item);
+    }
   }  
 
   const handleInputChange = function (event) {
