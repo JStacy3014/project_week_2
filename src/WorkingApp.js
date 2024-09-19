@@ -14,13 +14,13 @@ export function App(params) {
   const [formObject, setFormObject] = useState(blankCustomer);
   let mode = (formObject.id >= 0) ? 'Update' : 'Add';
   useEffect(() => { getCustomers() }, []);
-
+ 
   const getCustomers =  function(){
     log("in getCustomers()");
     setCustomers (getAll () );
   }
   //getAll was not returning - issue with memdb.js appeared to be the export portion
-
+ 
   const handleListClick = function(item){
     log("in handleListClick()");
     //tried setFormObject(item) as if statement and did not work, so switched them and it worked. 
@@ -30,7 +30,7 @@ export function App(params) {
       setFormObject(item);
     }
   }  
-
+  
   const handleInputChange = function (event) {
     log("in handleInputChange()");
     const name = event.target.name;
@@ -39,21 +39,21 @@ export function App(params) {
     newFormObject[name] = value;
     setFormObject(newFormObject);
   }
-
+  
   let onCancelClick = function () {
     log("in onCancelClick()");
     //below code sets the value of the formObject from "blank customer" variable
     //with this code clicking cancel removes info from input form and de-selects
     setFormObject(blankCustomer);
   }
-
+  
   let onDeleteClick = function () {
     if (formObject.id >=0) {
       deleteById(formObject.id);
     }
     setFormObject(blankCustomer);
   }
-
+ 
   let onSaveClick = function () {
     if (mode ==='Add') {
       post(formObject);
@@ -64,7 +64,7 @@ export function App(params) {
     setFormObject(blankCustomer);
     log("in onSaveClick()");
   }
-
+  
   return (
     <div>
       <div className="boxed" >

@@ -23,7 +23,7 @@ export function App(params) {
 
   const handleListClick = function(item){
     log("in handleListClick()");
-    //tried setFormObject(item) as if statement and did not work, so switched them and it worked. 
+    //if item.id = formobject.id that means it is already selected and should be deselected
     if(item.id === formObject.id) {
       setFormObject(blankCustomer);
     } else {
@@ -67,82 +67,20 @@ export function App(params) {
     setFormObject(blankCustomer);
     log("in onSaveClick()");
   }
-
+  
   return (
     <div>
-      <div className="boxed" >
-        <h4>Customer List</h4>
-        <table id="customer-list">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Pass</th>
-            </tr>
-          </thead>
-          <tbody>
-            {customers.map(
-              (item, index) => {
-                return (<tr key={item.id} 
-                //below code pulls in css formatting for .selected to make it bold 
-                className={ (item.id===formObject.id)?'selected':''}
-                onClick={()=>handleListClick(item)} 
-                >
-                  <td>{item.name}</td>
-                  <td>{item.email}</td>
-                  <td>{item.password}</td>
-                </tr>);
-              }
-            )}
-          </tbody>
-        </table>
-    </div>
-    <div className="boxed">
-      <div>
-        <h4>{mode}</h4>
-      </div>
-      <form >
-        <table id="customer-add-update" >
-          <tbody>
-            <tr>
-              <td className={'label'} >Name:</td>
-              <td><input
-                type="text"
-                name="name"
-                onChange={(e) => handleInputChange(e)}
-                value={formObject.name}
-                placeholder="Customer Name"
-                required /></td>
-            </tr>
-            <tr>
-              <td className={'label'} >Email:</td>
-              <td><input
-                type="email"
-                name="email"
-                onChange={(e) => handleInputChange(e)}
-                value={formObject.email}
-                placeholder="name@company.com" /></td>
-            </tr>
-            <tr>
-              <td className={'label'} >Pass:</td>
-              <td><input
-                type="text"
-                name="password"
-                onChange={(e) => handleInputChange(e)}
-                value={formObject.password}
-                placeholder="password" /></td>
-            </tr>
-            <tr className="button-bar">
-              <td colSpan="2">
-                <input type="button" value="Delete" onClick={onDeleteClick} />
-                <input type="button" value="Save" onClick={onSaveClick} />
-                <input type="button" value="Cancel" onClick={onCancelClick} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
-    </div>
+      <CustomerList
+        customers={customers}
+        formObject={formObject}
+        handleListClick={handleListClick}/>
+      <CustomerForm
+        formObject={formObject}
+        handleInputChange={handleInputChange}
+        onCancelClick={onCancelClick}
+        onDeleteClick={onDeleteClick}
+        onSaveClick={onSaveClick}
+        mode={mode}/>
     </div>
   );
 }
