@@ -19,7 +19,7 @@ export function App(params) {
     log("in getCustomers()");
     getAll(setCustomers);
   }
-  //getAll was not returning - issue with memdb.js appeared to be the export portion
+  
 
   const handleListClick = function(item){
     log("in handleListClick()");
@@ -67,7 +67,7 @@ export function App(params) {
     setFormObject(blankCustomer);
     log("in onSaveClick()");
   }
-  
+  //below code is pulling in the CustomerList and CustomerForm data from the new components created to split out code
   return (
     <div>
       <CustomerList
