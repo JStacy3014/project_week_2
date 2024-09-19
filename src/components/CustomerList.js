@@ -15,12 +15,12 @@ function CustomerList (params) {
               </tr>
             </thead>
             <tbody>
-              {customers.map(
+              {params.customers.map(
                 (item, index) => {
                   return (<tr key={item.id} 
                   //below code pulls in css formatting for .selected to make it bold 
-                  className={ (item.id===formObject.id)?'selected':''}
-                  onClick={()=>handleListClick(item)} 
+                  className={ (item.id===params.formObject.id)?'selected':''}
+                  onClick={()=>params.handleListClick(item)} 
                   >
                     <td>{item.name}</td>
                     <td>{item.email}</td>

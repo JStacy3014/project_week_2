@@ -16,8 +16,8 @@ function CustomerForm (params) {
               <td><input
                 type="text"
                 name="name"
-                onChange={(e) => handleInputChange(e)}
-                value={formObject.name}
+                onChange={(e) => params.handleInputChange(e)}
+                value={params.formObject.name}
                 placeholder="Customer Name"
                 required /></td>
             </tr>
@@ -26,8 +26,8 @@ function CustomerForm (params) {
               <td><input
                 type="email"
                 name="email"
-                onChange={(e) => handleInputChange(e)}
-                value={formObject.email}
+                onChange={(e) => params.handleInputChange(e)}
+                value={params.formObject.email}
                 placeholder="name@company.com" /></td>
             </tr>
             <tr>
@@ -35,15 +35,15 @@ function CustomerForm (params) {
               <td><input
                 type="text"
                 name="password"
-                onChange={(e) => handleInputChange(e)}
-                value={formObject.password}
+                onChange={(e) => params.handleInputChange(e)}
+                value={params.formObject.password}
                 placeholder="password" /></td>
             </tr>
             <tr className="button-bar">
               <td colSpan="2">
-                <input type="button" value="Delete" onClick={onDeleteClick} />
-                <input type="button" value="Save" onClick={onSaveClick} />
-                <input type="button" value="Cancel" onClick={onCancelClick} />
+                <input type="button" value="Delete" onClick={params.onDeleteClick} />
+                <input type="button" value="Save" onClick={params.onSaveClick} />
+                <input type="button" value="Cancel" onClick={params.onCancelClick} />
               </td>
             </tr>
           </tbody>
