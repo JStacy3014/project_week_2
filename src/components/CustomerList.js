@@ -24,7 +24,7 @@ function CustomerList (params) {
                   >
                     <td>{item.name}</td>
                     <td>{item.email}</td>
-                    <td>{item.password}</td>
+                    <td>{item.password.replace(/./g, '*')}</td>
                   </tr>);
                 }
               )}
@@ -34,5 +34,6 @@ function CustomerList (params) {
       </div>
     );
 }
+//line 27 replaced password with asterisks - is there a better way to do this?
 
 export default CustomerList;

@@ -1,8 +1,50 @@
 import React from 'react';
+import validator from "validator";
 
 function CustomerForm (params) {
     const{formObject, handleInputChange, onCancelClick, onDeleteClick, onSaveClick, mode} = params;
 
+   //this will check to ensure that the name field is not blank
+    const validateName = (name) => {
+        if (validator.isEmpty(name)) {
+            alert ("Name field cannot be left blank");
+            return false;
+        } return true;
+    }
+    
+    //this code will check that the email is a valid email 
+    const validateEmail = (email) => {
+        if (!validator.isEmail(email)) {
+            alert ("Please enter a valid email in the format abc@deg.com");
+            return false;
+        } return true;
+    }
+
+    //this code will check the password requirements
+    const validatePassword = (password) => {
+        if (!validator.isStrongPassword(password, {
+            minLength: 10, 
+            minLowercase: 1, 
+            minUppercase: 1, 
+            minNumbers: 2, 
+            minSymbols: 1
+        })) {
+            alert ("Please enter a valid password that includes 10 characters, an upper and lower case letter, 2 numbers and a symbol ");
+            return false; 
+        } return true;
+    }
+
+    //this will check to make sure all the validations are true before allowing a save
+    const handleSavingCustomer = () => {
+        const isNameValid = validateName(formObject.name)
+        const isEmailValid = validateEmail(formObject.email);
+        const isPasswordValid = validatePassword(formObject.password); 
+        
+        if (isNameValid && isEmailValid && isPasswordValid) {
+            onSaveClick();
+        }
+    }
+    
     return (
         <div className="boxed">
         <div>
@@ -42,7 +84,7 @@ function CustomerForm (params) {
             <tr className="button-bar">
               <td colSpan="2">
                 <input type="button" value="Delete" onClick={params.onDeleteClick} />
-                <input type="button" value="Save" onClick={params.onSaveClick} />
+                <input type="button" value="Save" onClick={handleSavingCustomer} />
                 <input type="button" value="Cancel" onClick={params.onCancelClick} />
               </td>
             </tr>
@@ -51,5 +93,6 @@ function CustomerForm (params) {
       </form>
     </div>);
 }
+//line 87 updated to the handleSavingCustomer to be sure validation runs before saving
 
 export default CustomerForm;
